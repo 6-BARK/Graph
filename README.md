@@ -19,6 +19,15 @@
 
 > Some usage instructions
 
+## CRUD
+
+server/index.js
+
+insert(property): creates a new property with the given info
+fetch(property): retrieves property by ID specified
+update(property): updates a property if it exists, otherwise creates a new one with the given info
+delete(property): removes a property with the ID specified
+
 ## Requirements
 
 An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
