@@ -11,6 +11,7 @@
     "start": "nodemon ./server/index.js",
     "webpack": "webpack -d -w",
     "webpack:server": "webpack-dev-server",
+    "seed": "node ./database/seed.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage --colors"
