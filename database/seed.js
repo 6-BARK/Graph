@@ -2,11 +2,33 @@
 /* eslint-disable max-len */
 /* eslint-disable no-param-reassign */
 const mongoose = require('mongoose');
-const database = require('./schema.js');
+const { Schema } = mongoose;
 
 mongoose.connect('mongodb://localhost/graph', { useNewUrlParser: true, useUnifiedTopology: true });
-const db = mongoose.connection;
-db.dropDatabase();
+
+const graphSchema = new Schema({
+  id: Number,
+  zestimate: String,
+  updateZestimate: String,
+  salesRange: String,
+  graphData: {
+    city: {
+      name: String,
+      price: [Number],
+    },
+    neighborhood: {
+      name: String,
+      price: [Number],
+    },
+    property: {
+      name: String,
+      price: [Number],
+      sold: [Number],
+    },
+  },
+});
+
+const Graph = mongoose.model('Graph', graphSchema);
 
 const cityPrices = [738700, 748300, 747700, 749000, 745800, 744600, 739100, 741700, 742500, 742000,
   734400, 724300, 716800, 709900, 707400, 704300, 699100, 690400, 688000, 687300, 688100, 685800,
@@ -60,7 +82,7 @@ function generateRange(number) {
   } return (parseInt(number / 10000, 10) / 100).toFixed(2) + 'M';
 }
 
-for (let i = 0; i < 1000; i ++) {
+for (let i = 0; i < 7000; i ++) {
   const oneGraph = {
     graphData: {
       city: {
@@ -85,5 +107,5 @@ for (let i = 0; i < 1000; i ++) {
   const high = generateRange(zestimateNum + zestimateNum * 0.1);
   oneGraph.salesRange = `$${low} - $${high}`;
   oneGraph.graphData.property.sold = generateSold(oneGraph.graphData.property.price);
-  database.Graph.create(oneGraph);
+  Graph.create(oneGraph);
 }
