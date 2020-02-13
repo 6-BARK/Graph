@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const port = 3003;
 const db = require('../database/schema.js');
+const handlers = require('../database/dbHandlers.js');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -17,16 +18,22 @@ app.get('/seed', (req, res) => {
 });
 
 app.get('/properties', (req, res) => {
-  const { id } = req.params;
-  db.retrieve({ id })
+  handlers.getHouses()
     .then((properties) => {
       res.send(properties);
     });
 });
 
+app.get('/properties/:id', (req, res) => {
+  const { id } = req.params;
+  handlers.getHouse(id)
+    .then((property) => {
+      res.send(property);
+    });
+});
+
 app.post('/properties', (req, res) => {
-  const { options } = req.params;
-  db.insert((options))
+  handlers.insertHouse(req.body)
     .then((response) => {
       res.send(response);
     });
