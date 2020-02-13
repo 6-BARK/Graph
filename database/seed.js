@@ -101,10 +101,10 @@ for (let i = 0; i < 7000; i ++) {
   };
   oneGraph.id = i;
   const zestimateNum = oneGraph.graphData.property.price[120];
-  oneGraph.zestimate = `$${addComa(zestimateNum)}`;
-  oneGraph.updateZestimate = `https://www.zillow.com/sellerlanding/edityourhome/${i}`;
   const low = generateRange(zestimateNum - zestimateNum * 0.1);
   const high = generateRange(zestimateNum + zestimateNum * 0.1);
+  oneGraph.zestimate = `$${addComa(zestimateNum)}`;
+  oneGraph.updateZestimate = `https://www.zillow.com/sellerlanding/edityourhome/${i}`;
   oneGraph.salesRange = `$${low} - $${high}`;
   oneGraph.graphData.property.sold = generateSold(oneGraph.graphData.property.price);
   Graph.create(oneGraph);
