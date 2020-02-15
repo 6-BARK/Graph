@@ -11,7 +11,7 @@
     "start": "nodemon ./server/index.js",
     "webpack": "webpack -d -w",
     "webpack:server": "webpack-dev-server",
-    "seed": "node ./database/seed.js",
+    "seed": "node ./database/pgSeed.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage --colors"
@@ -20,6 +20,7 @@
     "axios": "^0.19.2",
     "bluebird": "^3.7.2",
     "express": "^4.17.1",
+    "faker": "^4.1.0",
     "mongoose": "^5.8.9",
     "pg": "^7.18.1",
     "prop-types": "^15.7.2",
