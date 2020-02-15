@@ -58,15 +58,4 @@ for (let i = 1; i <= 50; i++) {
 }
 
 // houses seed
-// for (let i = 1; i < 1000; i++) {
-//   let prices = '';
-//   let start = getRandomNumberInRange(500000, 1000000);
-//   for (let j = 0; j < 120; j++) {
-//     const toAdd = start + getVariance();
-//     prices += `${toAdd}, `;
-//     start += 3500;
-//   }
-//   const city = faker.address.city();
-//   pool.query(`INSERT INTO neighborhoods (neighborhood_name, prices) values ('${city}', '${prices}}')`);
-//   cities[i] = prices;
-// }
+pool.query(`COPY houses(name, z_estimate, estimated_range_min, estimated_range_max, user_id, city_id, neighborhood_id, prices) FROM '/Users/bbalbon/SDC-csv/data.csv' DELIMITER ',' CSV HEADER;`);
