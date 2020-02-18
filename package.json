@@ -12,6 +12,7 @@
     "webpack": "webpack -d -w",
     "webpack:server": "webpack-dev-server",
     "seed": "node ./database/pgSeed.js",
+    "compile" : "node --max-old-space-size=8192 ./database/csvConverter.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage --colors"

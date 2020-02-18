@@ -1,28 +1,35 @@
 const { Pool } = require('pg');
 const faker = require('faker');
+const csv = require('./csvConverter.js');
+const path = require('path');
 
 const pool = new Pool({
   user: 'bbalbon',
   host: 'localhost',
   database: 'zillow',
-  password: '19251925',
   port: 5432,
 });
 
+const filePath = path.join(__dirname, 'data.csv');
+
 const getRandomNumberInRange = (min, max) => {
-  return Math.floor((Math.random() * (max - min)) + min)
+  return Math.floor((Math.random() * (max - min)) + min);
 };
 
 const getVariance = () => {
   return Math.random() < 0.5 ? -(getRandomNumberInRange(1000, 2000)) : getRandomNumberInRange(1000, 2000);
 };
 
+const insertCSV = () => {
+  pool.query(`COPY houses(name, z_estimate, estimated_range_min, estimated_range_max, user_id, city_id, neighborhood_id, prices) FROM '${filePath}' DELIMITER ',' CSV HEADER;`);
+};
+
 // 100 users, 20 cities, 50 neighborhoods
 
 // users seed
-for (let i = 0; i < 100; i++) {
-  let city = faker.name.firstName();
-  pool.query(`INSERT INTO users (name) values ('${city}')`);
+for (let i = 1; i < 100; i++) {
+  const name = faker.name.firstName();
+  pool.query(`INSERT INTO users (name) values ('${name}')`);
 }
 
 let cities = {};
@@ -58,4 +65,4 @@ for (let i = 1; i <= 50; i++) {
 }
 
 // houses seed
-pool.query(`COPY houses(name, z_estimate, estimated_range_min, estimated_range_max, user_id, city_id, neighborhood_id, prices) FROM '/Users/bbalbon/SDC-csv/data.csv' DELIMITER ',' CSV HEADER;`);
+csv.createCSV(insertCSV);
