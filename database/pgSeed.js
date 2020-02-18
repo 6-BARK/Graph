@@ -1,7 +1,7 @@
 const { Pool } = require('pg');
 const faker = require('faker');
-const csv = require('./csvConverter.js');
 const path = require('path');
+const csv = require('./csvConverter.js');
 
 const pool = new Pool({
   user: 'bbalbon',
@@ -21,7 +21,13 @@ const getVariance = () => {
 };
 
 const insertCSV = () => {
-  pool.query(`COPY houses(name, z_estimate, estimated_range_min, estimated_range_max, user_id, city_id, neighborhood_id, prices) FROM '${filePath}' DELIMITER ',' CSV HEADER;`);
+  pool.query(`COPY houses(name, z_estimate, estimated_range_min, estimated_range_max, user_id, city_id, neighborhood_id, prices) FROM '${filePath}' DELIMITER ',' CSV HEADER;`, (err, result) => {
+    if (err) {
+      throw err;
+    } else {
+      console.log('done');
+    }
+  });
 };
 
 // 100 users, 20 cities, 50 neighborhoods
@@ -65,4 +71,7 @@ for (let i = 1; i <= 50; i++) {
 }
 
 // houses seed
-csv.createCSV(insertCSV);
+csv.writeCSV()
+  .then((result) => {
+    insertCSV();
+  });
