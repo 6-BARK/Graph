@@ -1,6 +1,6 @@
 const cassandra = require('cassandra-driver');
 const path = require('path');
-const csv = require('./csvConverter.js');
+const csv = require('../csvConverter.js');
 
 const client = new cassandra.Client({
   localDataCenter: 'datacenter1',

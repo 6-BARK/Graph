@@ -1,7 +1,7 @@
 const { Pool } = require('pg');
 const faker = require('faker');
 const path = require('path');
-const csv = require('./csvConverter.js');
+const csv = require('../csvConverter.js');
 
 const pool = new Pool({
   user: 'bbalbon',
