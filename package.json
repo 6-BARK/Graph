@@ -11,9 +11,10 @@
     "start": "nodemon ./server/index.js",
     "webpack": "webpack -d -w",
     "webpack:server": "webpack-dev-server",
-    "seed": "node --max-old-space-size=8192 ./database/pgSeed.js",
-    "create-db": "psql postgres <./database/pgSchema.sql",
-    "compile": "node --max-old-space-size=8192 ./database/csvConverter.js",
+    "seed": "node --max-old-space-size=8192 ./database/postgres/pgSeed.js",
+    "cass": "node --max-old-space-size=8192 ./database/cassandra/cassSeed.js",
+    "create-db": "psql postgres <./database/postgres/pgSchema.sql",
+    "cass-db": "cqlsh < ./database/cassandra/cassSchema.cql",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage --colors"
@@ -21,6 +22,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "bluebird": "^3.7.2",
+    "cassandra-driver": "^4.4.0",
     "express": "^4.17.1",
     "faker": "^4.1.0",
     "mongoose": "^5.8.9",

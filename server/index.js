@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const port = 3003;
 const db = require('../database/schema.js');
-const handlers = require('../database/dbHandlers.js');
+const handlers = require('../database/postgres/dbHandlers.js');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
