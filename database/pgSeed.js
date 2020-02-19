@@ -38,8 +38,6 @@ for (let i = 1; i < 100; i++) {
   pool.query(`INSERT INTO users (name) values ('${name}')`);
 }
 
-let cities = {};
-
 // cities seed
 for (let i = 1; i <= 20; i++) {
   let prices = '';
@@ -51,10 +49,7 @@ for (let i = 1; i <= 20; i++) {
   }
   const city = faker.address.city();
   pool.query(`INSERT INTO cities (city_name, prices) values ('${city}', '${prices}}')`);
-  cities[i] = prices;
 }
-
-const neighborhoods = {};
 
 // neighborhoods seed
 for (let i = 1; i <= 50; i++) {
@@ -67,7 +62,6 @@ for (let i = 1; i <= 50; i++) {
   }
   const neighborhood = faker.address.streetName();
   pool.query(`INSERT INTO neighborhoods (neighborhood_name, prices) values ('${neighborhood}', '${prices}}')`);
-  neighborhoods[i] = prices;
 }
 
 // houses seed
