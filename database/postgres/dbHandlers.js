@@ -9,16 +9,6 @@ const pool = new Pool({
   port: 5432,
 });
 
-const getHouses = () => new Promise((resolve, reject) => {
-  pool.query('SELECT * from houses', (err, data) => {
-    if (err) {
-      reject(err);
-    } else {
-      resolve(data);
-    }
-  });
-});
-
 const getHouse = (id) => new Promise((resolve, reject) => {
   pool.query(`SELECT * FROM houses WHERE id = ${id}`, (err, data) => {
     if (err) {
@@ -39,6 +29,16 @@ const insertHouse = (data) => new Promise((resolve, reject) => {
   });
 });
 
-exports.getHouses = getHouses;
+const updateHouse = (data) => new Promise((resolve, reject) => {
+  pool.query(`UPDATE houses where id = ${data.id}`, (err, newData) => {
+    if (err) {
+      reject(err);
+    } else {
+      resolve(newData);
+    }
+  });
+});
+
+exports.updateHouse = updateHouse;
 exports.getHouse = getHouse;
 exports.insertHouse = insertHouse;
