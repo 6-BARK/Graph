@@ -20,25 +20,14 @@ app.get('/seed', (req, res) => {
 
 // Added endpoints
 
-app.get('/properties/:id', controllers.get.pg);
+app.get('/properties/:id', controllers.get);
 
-app.post('/properties', controllers.post.pg);
+app.post('/properties', controllers.post);
 
-app.put('/properties/:id', (req, res) => {
-  const options = req.body;
-  const { id } = req.params;
-  db.update(id, options)
-    .then((docs) => {
-      res.send(docs);
-    });
-});
+app.put('/properties/:id', controllers.updateHouse);
 
-app.delete('/properties/:id', (req, res) => {
-  const { id } = req.params;
-  db.deleteOne(id)
-    .then((updatedProp) => {
-      res.send(updatedProp);
-    });
-});
+app.put('/prices/:id', controllers.updatePrices);
+
+app.delete('/properties/:id', controllers.remove);
 
 app.listen(port);

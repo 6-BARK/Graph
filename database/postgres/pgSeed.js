@@ -10,7 +10,7 @@ const pool = new Pool({
   port: 5432,
 });
 
-const filePath = path.join(__dirname, 'data.csv');
+const filePath = path.join(__dirname, '..', 'data.csv');
 
 const getRandomNumberInRange = (min, max) => {
   return Math.floor((Math.random() * (max - min)) + min);
@@ -21,7 +21,7 @@ const getVariance = () => {
 };
 
 const insertCSV = () => {
-  pool.query(`COPY houses(name, z_estimate, estimated_range_min, estimated_range_max, user_id, city_id, neighborhood_id, prices) FROM '${filePath}' DELIMITER ',' CSV HEADER;`, (err, result) => {
+  pool.query(`COPY houses(house_name, z_estimate, estimated_range_min, estimated_range_max, user_id, city_id, neighborhood_id, house_prices) FROM '${filePath}' DELIMITER ',' CSV HEADER;`, (err, result) => {
     if (err) {
       throw err;
     } else {
@@ -30,42 +30,41 @@ const insertCSV = () => {
   });
 };
 
-// 100 users, 20 cities, 50 neighborhoods
 
 // users seed
-for (let i = 1; i < 100; i++) {
+for (let i = 1; i < 500; i++) {
   const name = faker.name.firstName();
   pool.query(`INSERT INTO users (name) values ('${name}')`);
 }
 
 // cities seed
-for (let i = 1; i <= 20; i++) {
+for (let i = 1; i <= 1000; i++) {
   let prices = '';
   let start = getRandomNumberInRange(500000, 1000000);
-  for (let j = 0; j < 120; j++) {
+  for (let j = 0; j < 100; j++) {
     const toAdd = start + getVariance();
     prices += `${toAdd}, `;
     start += 3500;
   }
   const city = faker.address.city();
-  pool.query(`INSERT INTO cities (city_name, prices) values ('${city}', '${prices}}')`);
+  pool.query(`INSERT INTO cities (city_name, city_prices) values ('${city}', '${prices}}')`);
 }
 
 // neighborhoods seed
-for (let i = 1; i <= 50; i++) {
+for (let i = 1; i <= 2000; i++) {
   let prices = '';
   let start = getRandomNumberInRange(500000, 1000000);
-  for (let j = 0; j < 120; j++) {
+  for (let j = 0; j < 100; j++) {
     const toAdd = start + getVariance();
     prices += `${toAdd}, `;
     start += 3500;
   }
   const neighborhood = faker.address.streetName();
-  pool.query(`INSERT INTO neighborhoods (neighborhood_name, prices) values ('${neighborhood}', '${prices}}')`);
+  pool.query(`INSERT INTO neighborhoods (neighborhood_name, neighborhood_prices) values ('${neighborhood}', '${prices}}')`);
 }
 
 // houses seed
 csv.writeCSV()
-  .then((result) => {
+  .then(() => {
     insertCSV();
   });
