@@ -9,36 +9,70 @@ const pool = new Pool({
   port: 5432,
 });
 
-const getHouses = () => new Promise((resolve, reject) => {
-  pool.query('SELECT * from houses', (err, data) => {
-    if (err) {
-      reject(err);
-    } else {
-      resolve(data);
-    }
-  });
-});
-
 const getHouse = (id) => new Promise((resolve, reject) => {
-  pool.query(`SELECT * FROM houses WHERE id = ${id}`, (err, data) => {
+  pool.query(`SELECT houses.house_name, cities.city_name, neighborhoods.neighborhood_name, z_estimate, estimated_range_min, estimated_range_max, houses.house_prices, cities.city_prices, neighborhoods.neighborhood_prices from houses inner join users on users.id = houses.user_id inner join cities on cities.id = houses.city_id inner join neighborhoods on neighborhoods.id = houses.neighborhood_id where houses.id = ${id}`, (err, data) => {
     if (err) {
       reject(err);
     } else {
-      resolve(data);
+      resolve(data.rows);
     }
   });
 });
 
 const insertHouse = (data) => new Promise((resolve, reject) => {
-  pool.query(`INSERT INTO houses (z_estimate, estimated_range_min, estimated_range_max, city_name, neighborhood_name, city_prices, neighborhood_prices, property_price) values (${parseInt(data.zEstimate)}, ${parseInt(data.estimatedRangeMin)}, ${parseInt(data.estimatedRangeMax)}, ${data.cityName}, ${data.neighborhoodName}, ${data.cityPrices}, ${data.neighborhoodPrices}, ${data.propertyPrice});`, (err, response) => {
+  const {
+    name,
+    z,
+    estimatedRangeMin,
+    estimatedRangeMax,
+    userId,
+    cityId,
+    neighborhoodId,
+    prices,
+  } = data;
+  pool.query(`INSERT INTO houses (name, z_estimate, estimated_range_min, estimated_range_max, user_id, city_id, neighborhood_id, prices) values ('${name}', ${parseInt(z, 10)}, ${parseInt(estimatedRangeMin, 10)}, ${parseInt(estimatedRangeMax, 10)}, ${parseInt(userId, 10)}, ${parseInt(cityId, 10)}, ${parseInt(neighborhoodId, 10)}, '${prices}');`, (err, response) => {
     if (err) {
       reject(err);
     } else {
-      resolve(response);
+      resolve(response.rows);
     }
   });
 });
 
-exports.getHouses = getHouses;
-exports.getHouse = getHouse;
-exports.insertHouse = insertHouse;
+const updateHouse = (data, id) => new Promise((resolve, reject) => {
+  pool.query(`UPDATE houses set name = '${data.name}' where id = ${id}`, (err, newData) => {
+    if (err) {
+      reject(err);
+    } else {
+      resolve(newData.rows);
+    }
+  });
+});
+
+const updatePrices = (data, id) => new Promise((resolve, reject) => {
+  pool.query(`UPDATE houses set house_prices = house_prices || '${data.price}' where id = ${id}`, (err, newData) => {
+    if (err) {
+      reject(err);
+    } else {
+      resolve(newData.rows);
+    }
+  });
+});
+
+const deleteHouse = (id) => new Promise((resolve, reject) => {
+  pool.query(`DELETE from houses where id = ${id};`, (err, newData) => {
+    if (err) {
+      reject(err);
+    } else {
+      resolve(newData.rows);
+    }
+  });
+});
+
+module.exports = {
+  deleteHouse,
+  updateHouse,
+  updatePrices,
+  getHouse,
+  insertHouse,
+};
