@@ -30,11 +30,11 @@ const insertHouse = (data) => new Promise((resolve, reject) => {
     neighborhoodId,
     prices,
   } = data;
-  pool.query(`INSERT INTO houses (name, z_estimate, estimated_range_min, estimated_range_max, user_id, city_id, neighborhood_id, prices) values ('${name}', ${parseInt(z, 10)}, ${parseInt(estimatedRangeMin, 10)}, ${parseInt(estimatedRangeMax, 10)}, ${parseInt(userId, 10)}, ${parseInt(cityId, 10)}, ${parseInt(neighborhoodId, 10)}, '${prices}');`, (err, response) => {
+  pool.query(`INSERT INTO houses (house_name, z_estimate, estimated_range_min, estimated_range_max, user_id, city_id, neighborhood_id, house_prices) values ('${name}', ${parseInt(z, 10)}, ${parseInt(estimatedRangeMin, 10)}, ${parseInt(estimatedRangeMax, 10)}, ${parseInt(userId, 10)}, ${parseInt(cityId, 10)}, ${parseInt(neighborhoodId, 10)}, '${prices}');`, (err, response) => {
     if (err) {
       reject(err);
     } else {
-      resolve(response.rows);
+      resolve(response);
     }
   });
 });
@@ -64,7 +64,7 @@ const deleteHouse = (id) => new Promise((resolve, reject) => {
     if (err) {
       reject(err);
     } else {
-      resolve(newData.rows);
+      resolve(newData);
     }
   });
 });
