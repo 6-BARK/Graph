@@ -10,7 +10,7 @@ const pool = new Pool({
 });
 
 const getHouse = (id) => new Promise((resolve, reject) => {
-  pool.query(`SELECT houses.house_name, cities.city_name, neighborhoods.neighborhood_name, z_estimate, estimated_range_min, estimated_range_max, houses.house_prices, cities.city_prices, neighborhoods.neighborhood_prices from houses inner join users on users.id = houses.user_id inner join cities on cities.id = houses.city_id inner join neighborhoods on neighborhoods.id = houses.neighborhood_id where houses.id = ${id}`, (err, data) => {
+  pool.query(`SELECT houses.house_name, cities.city_name, neighborhoods.neighborhood_name, z_estimate, estimated_range_min, estimated_range_max, houses.house_prices, cities.city_prices, neighborhoods.neighborhood_prices from houses inner join cities on cities.id = houses.city_id inner join neighborhoods on neighborhoods.id = houses.neighborhood_id where houses.id = ${id}`, (err, data) => {
     if (err) {
       reject(err);
     } else {
