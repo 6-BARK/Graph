@@ -3,22 +3,22 @@ import { check, sleep } from 'k6';
 
 export const options = {
   vus: 100,
-  duration: "20s",
+  duration: '150s',
 };
 
 // Read operations testing
-export default function() {
+export default function () {
   const id = Math.round(Math.random() * 10000000);
   const res = http.get(`http://localhost:3003/properties/${id}`);
   check(res, {
-    "status was 200": (r) => r.status == 200,
+    "status was 200": (r) => r.status === 200,
     "transaction time OK": (r) => r.timings.duration < 200
   });
   sleep(1);
 };
 
 // Write operations testing
-// export default function() {
+// export default function () {
 //   const payload = {
 //     name: '123 oMalley',
 //     z: '45',
@@ -34,7 +34,7 @@ export default function() {
 //   if (rand === 1) {
 //     const postRes = http.post('http://localhost:3003/properties/', JSON.stringify(payload), params);
 //     check(postRes, {
-//       "status was 200": (r) => r.status == 200,
+//       "status was 200": (r) => r.status === 200,
 //       "transaction time OK": (r) => r.timings.duration < 200
 //     });
 //   }
