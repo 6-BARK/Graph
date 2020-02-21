@@ -34,3 +34,4 @@ CREATE TABLE houses (
 );
 
 CREATE INDEX house_ix on houses(id);
+CREATE INDEX neighborhood_ix on neighborhoods(id);
