@@ -4,3 +4,4 @@ bundle.js
 .DS_Store
 data.csv
 cassData.csv
+newrelic_agent.log

@@ -32,3 +32,6 @@ CREATE TABLE houses (
     neighborhood_id integer references neighborhoods(id) NOT NULL,
     house_prices varchar (1500) NOT NULL
 );
+
+CREATE INDEX house_ix on houses(id);
+CREATE INDEX neighborhood_ix on neighborhoods(id);

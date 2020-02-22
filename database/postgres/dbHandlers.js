@@ -10,7 +10,7 @@ const pool = new Pool({
 });
 
 const getHouse = (id) => new Promise((resolve, reject) => {
-  pool.query(`SELECT houses.house_name, cities.city_name, neighborhoods.neighborhood_name, z_estimate, estimated_range_min, estimated_range_max, houses.house_prices, cities.city_prices, neighborhoods.neighborhood_prices from houses inner join users on users.id = houses.user_id inner join cities on cities.id = houses.city_id inner join neighborhoods on neighborhoods.id = houses.neighborhood_id where houses.id = ${id}`, (err, data) => {
+  pool.query(`SELECT houses.house_name, cities.city_name, neighborhoods.neighborhood_name, z_estimate, estimated_range_min, estimated_range_max, houses.house_prices, cities.city_prices, neighborhoods.neighborhood_prices from houses inner join cities on cities.id = houses.city_id inner join neighborhoods on neighborhoods.id = houses.neighborhood_id where houses.id = ${id}`, (err, data) => {
     if (err) {
       reject(err);
     } else {
@@ -30,11 +30,11 @@ const insertHouse = (data) => new Promise((resolve, reject) => {
     neighborhoodId,
     prices,
   } = data;
-  pool.query(`INSERT INTO houses (name, z_estimate, estimated_range_min, estimated_range_max, user_id, city_id, neighborhood_id, prices) values ('${name}', ${parseInt(z, 10)}, ${parseInt(estimatedRangeMin, 10)}, ${parseInt(estimatedRangeMax, 10)}, ${parseInt(userId, 10)}, ${parseInt(cityId, 10)}, ${parseInt(neighborhoodId, 10)}, '${prices}');`, (err, response) => {
+  pool.query(`INSERT INTO houses (house_name, z_estimate, estimated_range_min, estimated_range_max, user_id, city_id, neighborhood_id, house_prices) values ('${name}', ${parseInt(z, 10)}, ${parseInt(estimatedRangeMin, 10)}, ${parseInt(estimatedRangeMax, 10)}, ${parseInt(userId, 10)}, ${parseInt(cityId, 10)}, ${parseInt(neighborhoodId, 10)}, '${prices}');`, (err, response) => {
     if (err) {
       reject(err);
     } else {
-      resolve(response.rows);
+      resolve(response);
     }
   });
 });
@@ -64,7 +64,7 @@ const deleteHouse = (id) => new Promise((resolve, reject) => {
     if (err) {
       reject(err);
     } else {
-      resolve(newData.rows);
+      resolve(newData);
     }
   });
 });
