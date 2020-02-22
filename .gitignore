@@ -5,3 +5,4 @@ bundle.js
 data.csv
 cassData.csv
 newrelic_agent.log
+newrelic.js

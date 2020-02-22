@@ -40,7 +40,7 @@ const insertHouse = (data) => new Promise((resolve, reject) => {
 });
 
 const updateHouse = (data, id) => new Promise((resolve, reject) => {
-  pool.query(`UPDATE houses set name = '${data.name}' where id = ${id}`, (err, newData) => {
+  pool.query(`UPDATE houses set house_name = '${data.name}' where id = ${id}`, (err, newData) => {
     if (err) {
       reject(err);
     } else {

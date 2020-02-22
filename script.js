@@ -3,7 +3,7 @@ import { check, sleep } from 'k6';
 
 export const options = {
   vus: 100,
-  duration: '150s',
+  duration: '300s',
 };
 
 // Read operations testing
@@ -12,7 +12,7 @@ export default function () {
   const res = http.get(`http://localhost:3003/properties/${id}`);
   check(res, {
     "status was 200": (r) => r.status === 200,
-    "transaction time OK": (r) => r.timings.duration < 200
+    "transaction time OK": (r) => r.timings.duration < 2000
   });
   sleep(1);
 };
