@@ -3,7 +3,7 @@ const path = require('path');
 const Promise = require('bluebird');
 const faker = require('faker');
 
-const filePath = path.join(__dirname, 'data.csv');
+const filePath = path.join(__dirname, 'data2.csv');
 const writeHouses = fs.createWriteStream(`${filePath}`);
 
 const getRandomNumberInRange = (min, max) => {
@@ -17,7 +17,7 @@ const getVariance = () => {
 
 const createCSV = (writer, encoding, callback) => {
   writeHouses.write('house_name,z_estimate,estimated_range_min,estimated_range_max,user_id,city_id,neighborhood_id,prices\n', 'utf-8');
-  let i = 10000000;
+  let i = 1000;
   const write = () => {
     let ok = true;
     do {

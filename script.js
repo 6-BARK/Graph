@@ -3,7 +3,7 @@ import { check, sleep } from 'k6';
 
 export const options = {
   vus: 100,
-  duration: '300s',
+  duration: '30s',
 };
 
 // Read operations testing

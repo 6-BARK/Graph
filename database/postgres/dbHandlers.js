@@ -5,7 +5,6 @@ const pool = new Pool({
   user: 'bbalbon',
   host: 'localhost',
   database: 'zillow',
-  password: '19251925',
   port: 5432,
 });
 
