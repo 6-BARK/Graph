@@ -3,13 +3,13 @@ import { check, sleep } from 'k6';
 
 export const options = {
   vus: 100,
-  duration: '30s',
+  duration: '300s',
 };
 
 // Read operations testing
 export default function () {
   const id = Math.round(Math.random() * 10000000);
-  const res = http.get(`http://localhost:3003/properties/${id}`);
+  const res = http.get(`http://18.219.37.212:3003/properties/${id}`);
   check(res, {
     "status was 200": (r) => r.status === 200,
     "transaction time OK": (r) => r.timings.duration < 2000
