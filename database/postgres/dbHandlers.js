@@ -2,10 +2,10 @@ const { Pool } = require('pg');
 const Promise = require('bluebird');
 
 const pool = new Pool({
-  user: 'bbalbon',
-  host: 'localhost',
+  user: 'postgres',
+  host: `${process.env.IP}`,
   database: 'zillow',
-  password: '19251925',
+  password: `${process.env.PW}`,
   port: 5432,
 });
 
@@ -40,7 +40,7 @@ const insertHouse = (data) => new Promise((resolve, reject) => {
 });
 
 const updateHouse = (data, id) => new Promise((resolve, reject) => {
-  pool.query(`UPDATE houses set name = '${data.name}' where id = ${id}`, (err, newData) => {
+  pool.query(`UPDATE houses set house_name = '${data.name}' where id = ${id}`, (err, newData) => {
     if (err) {
       reject(err);
     } else {

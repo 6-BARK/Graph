@@ -4,9 +4,10 @@ const path = require('path');
 const csv = require('../csvConverter.js');
 
 const pool = new Pool({
-  user: 'bbalbon',
-  host: 'localhost',
+  user: 'postgres',
+  host: '3.21.35.254',
   database: 'zillow',
+  password: 'postgres',
   port: 5432,
 });
 
@@ -68,3 +69,6 @@ csv.writeCSV()
   .then(() => {
     insertCSV();
   });
+
+// seed when CSV compiled already
+// insertCSV();
