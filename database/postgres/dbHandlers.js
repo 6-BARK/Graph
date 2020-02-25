@@ -3,9 +3,9 @@ const Promise = require('bluebird');
 
 const pool = new Pool({
   user: 'postgres',
-  host: '3.21.35.254',
+  host: `${process.env.IP}`,
   database: 'zillow',
-  password: 'postgres',
+  password: `${process.env.PW}`,
   port: 5432,
 });
 
