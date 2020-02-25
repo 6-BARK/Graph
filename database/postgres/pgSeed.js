@@ -32,6 +32,7 @@ const insertCSV = () => {
 };
 
 
+
 // users seed
 for (let i = 1; i < 500; i++) {
   const name = faker.name.firstName();
@@ -65,10 +66,10 @@ for (let i = 1; i <= 2000; i++) {
 }
 
 // houses seed
-csv.writeCSV()
-  .then(() => {
-    insertCSV();
-  });
+// csv.writeCSV()
+//   .then(() => {
+//     insertCSV();
+//   });
 
 // seed when CSV compiled already
 // insertCSV();
