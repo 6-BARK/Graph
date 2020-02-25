@@ -40,10 +40,15 @@ const remove = (req, res) => {
     });
 };
 
+const loader = (req, res) => {
+  res.send('loaderio-191a57002869e49ef70b21c4cde280f1');
+};
+
 module.exports = {
   get,
   post,
   updateHouse,
   updatePrices,
   remove,
+  loader,
 };
