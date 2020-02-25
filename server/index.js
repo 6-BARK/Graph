@@ -1,4 +1,3 @@
-require('newrelic');
 const express = require('express');
 
 const app = express();
@@ -30,5 +29,8 @@ app.put('/properties/:id', controllers.updateHouse);
 app.put('/prices/:id', controllers.updatePrices);
 
 app.delete('/properties/:id', controllers.remove);
+
+// loader endpoint
+app.get('/loaderio-191a57002869e49ef70b21c4cde280f1', controllers.loader);
 
 app.listen(port);

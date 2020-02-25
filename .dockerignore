@@ -1,3 +1,6 @@
 node_modules
 jest.config.js
 commandScripts
+newrelic_agent.log
+newrelic.js
+script.js
