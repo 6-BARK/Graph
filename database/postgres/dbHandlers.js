@@ -2,6 +2,7 @@ const { Pool } = require('pg');
 const Promise = require('bluebird');
 
 const pool = new Pool({
+  max: 50,
   user: 'postgres',
   host: `${process.env.IP}`,
   database: 'zillow',

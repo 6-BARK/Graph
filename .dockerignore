@@ -4,3 +4,4 @@ commandScripts
 newrelic_agent.log
 newrelic.js
 script.js
+/database/nginx
